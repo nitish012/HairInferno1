@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical"
+   >
+
+
+    <RelativeLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_one_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:elevation="10dp"
+           >
+
+        <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+            <ImageView
+        android:id="@+id/im_mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitXY"
+       android:layout_gravity="center"
+        android:src="@drawable/ic_mail"
+        />
+
+    <TextView
+        android:id="@+id/tv_confirmation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/im_mail"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_gravity="center"
+        android:text="CONFIRMATION!"
+        android:textSize="20sp"
+        android:textColor="@color/colorBlack"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_confirmation"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:text="We have sent you an email
+     confirmation link on your
+       register email address."
+        android:textColor="@color/colorBlack"
+        android:layout_marginBottom="50dp"
+        />
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:elevation="15dp"
+                android:text="OK"
+                android:layout_marginBottom="20dp"
+                android:textColor="#fff"
+                android:background="@drawable/button"
+                android:onClick="ok"
+                />
+
+    </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

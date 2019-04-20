@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splash_img2width">400dp</dimen>
+    <dimen name="splash_img2height">150dp</dimen>
+    <dimen name="splash_img2marginbottom">70dp</dimen>
+    <dimen name="sign_up_viewheight">400dp</dimen>
+    <dimen name="cardview_height">420dp</dimen>
+    <dimen name="cardview_margintop">150dp</dimen>
+    <dimen name="cardview_marginleft">30dp</dimen>
+    <dimen name="cardview_marginright">30dp</dimen>
+    <dimen name="imagerelative_height">300dp</dimen>
+    <dimen name="margin">30dp</dimen>
+    <dimen name="button_width">250dp</dimen>
+    <dimen name="button_height">50dp</dimen>
+    <dimen name="edittext_margin">18.3dp</dimen>
+    <dimen name="circleimage_width">96dp</dimen>
+    <dimen name="circleimage_height">96dp</dimen>
+    <dimen name="circleimage_padding">30dp</dimen>
+    <dimen name="card_height">250dp</dimen>
+    <dimen name="card_top_margin">200dp</dimen>
+    <dimen name="circle_image_borderwidth">2dp</dimen>
+    <dimen name="textview_marginleft">10dp</dimen>
+    <dimen name="home_image_marginleft">100dp</dimen>
+    <dimen name="relativehome_margintop">120dp</dimen>
+    <dimen name="linearhome_padding">10dp</dimen>
+    <dimen name="layout_image_margintop">5dp</dimen>
+    <dimen name="commentlike_text">270dp</dimen>
+    <dimen name="sharelayout_marginleft">70dp</dimen>
+    <dimen name="layout_recycler_margintop">60dp</dimen>
+
+
+    <!--<item name="edittext_margin" type="dimen" format="float">18.3dp</item>-->
+</resources>

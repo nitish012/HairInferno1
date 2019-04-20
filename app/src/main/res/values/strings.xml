@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HairInferno</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="report">Report</string>
+    <string name="block">Block</string>
+    <string name="mute">Mute</string>
+    <string name="abhishek">abhishek</string>
+
+</resources>
