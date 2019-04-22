@@ -28,6 +28,5 @@
     <dimen name="sharelayout_marginleft">70dp</dimen>
     <dimen name="layout_recycler_margintop">60dp</dimen>
 
-
     <!--<item name="edittext_margin" type="dimen" format="float">18.3dp</item>-->
 </resources>

@@ -1,6 +1,7 @@
 package com.example.hairinferno1.activities;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -36,14 +37,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignUp extends AppCompatActivity {
 
-   private TextView tvTerms,tvLogin;
-   private Dialog myDialog;
-   private Button ok;
-   private EditText name,email,password,confirmPassword;
-   private SharedPreferences sharedPreferences;
-   private CheckBox checkBox;
-   String TAG="result";
-
+    private TextView tvTerms,tvLogin;
+    private Dialog myDialog;
+    private Button ok;
+    private EditText name,email,password,confirmPassword;
+    private SharedPreferences sharedPreferences;
+    private CheckBox checkBox;
+    String TAG="result";
+    private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +53,6 @@ public class SignUp extends AppCompatActivity {
         termsString();
         loginString();
         sharedPreferences=getSharedPreferences("Signup",MODE_PRIVATE);
-
-
     }
 
     private void fetchId()
@@ -68,7 +67,6 @@ public class SignUp extends AppCompatActivity {
         confirmPassword=findViewById(R.id.et_confirmPassword);
         checkBox=findViewById(R.id.agree_checkbox);
     }
-        String regexEmail="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
 
     private void termsString() {
 
@@ -107,7 +105,6 @@ public class SignUp extends AppCompatActivity {
 
     public void signUp(View view) {
 
-        //Toast.makeText(this, "signup", Toast.LENGTH_SHORT).show();
         String regexEmail="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
 
         if(email.getText().toString().length()==0 || password.getText().toString().length()==0 || confirmPassword.getText().toString().length()==0 || name.getText().toString().length()==0 )
@@ -115,43 +112,32 @@ public class SignUp extends AppCompatActivity {
 
         else if(!email.getText().toString().matches(regexEmail))
             Toast.makeText(this,"Please enter correct email",Toast.LENGTH_SHORT).show();
+        else if(password.getText().toString().length()<6)
+            Toast.makeText(this,"password must contain atleast 6 characters",Toast.LENGTH_SHORT).show();
+
         else if(!password.getText().toString().equals(confirmPassword.getText().toString()))
             Toast.makeText(this,"Password didn't match",Toast.LENGTH_SHORT).show();
 
         else if(!checkBox.isChecked())
             Toast.makeText(this,"Please agree to our terms and conditions",Toast.LENGTH_SHORT).show();
 
+        else if (name.getText().toString().length()<5)
+        {
+            Toast.makeText(this,"Name must contain atleast 5 characters",Toast.LENGTH_SHORT).show();
+        }
+
         else
         {
             postSignup();
         }
-        }
-
-
-//        else  {
-//            myDialog = new Dialog(SignUp.this);
-//            myDialog.setContentView(R.layout.customdialog);
-//            myDialog.setTitle("My Custom Dialog");
-////        ok.setEnabled(true);
-////
-////        ok.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////
-////                Toast.makeText(SignUp.this, "Successfully signed up", Toast.LENGTH_SHORT).show();
-////
-////            }
-////        });
-//            myDialog.show();
-//
-//
-//
-  //      }
+    }
 
     public void ok(View view) {
 
         Intent intent=new Intent(SignUp.this,Login.class);
         startActivity(intent);
+        finish();
+
     }
 
     public void postSignup()
@@ -160,43 +146,37 @@ public class SignUp extends AppCompatActivity {
         String user_name=name.getText().toString();
         String user_email=email.getText().toString();
         String user_password=password.getText().toString();
-       // String user_confirmPassword=confirmPassword.getText().toString();
-
-      String android_id = Settings.Secure.getString(this.getContentResolver(),
+        String android_id = Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
+        progressBar();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Api.BASE_URL).addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         Api api = retrofit.create(Api.class);
         Call<Example> call=api.postSignup(user_name,user_email,user_password,"1",android_id,"1","dDNsA","ssda","hgghg");
-       // Call<Example> call=api.postSignup("dshjghgddsd","vsdfbh23@gmail.com","d87656dasd","1",android_id,"1","dsdfDhjhjNsAA","ssdhjgjgsdfaA","hgsdfghhjksag");
+
         call.enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
 
-
-//                    JSONObject jsonObject=new JSONObject(resp);
-//                    jsonObject.getJSONObject("RESULT");
-//                   String name=jsonObject.getString("name");
-//                   String email=jsonObject.getString("email");
-//               )    String token=jsonObject.getString("token");
-
                 Log.i("TAG",String.valueOf(response.code()));
 
-
                 if (response.code()==200)
-                { myDialog = new Dialog(SignUp.this);
-                  myDialog.setContentView(R.layout.customdialog);
-                  myDialog.setTitle("My Custom Dialog");
-                  myDialog.show();
+                {
+                    mProgressDialog.dismiss();
+                    myDialog = new Dialog(SignUp.this);
+                    myDialog.setContentView(R.layout.customdialog);
+                    myDialog.setTitle("My Custom Dialog");
+                    myDialog.setCancelable(false);
+                    myDialog.show();
 
                     Example example=response.body();
                     String token=example.getRESULT().getToken();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("Token",token);
-
+                    editor.apply();
                 }
 
 
@@ -209,10 +189,19 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private void progressBar()
+    {
+        mProgressDialog = new ProgressDialog(SignUp.this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setMax(20);
+        mProgressDialog.show();
+
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

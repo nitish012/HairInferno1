@@ -40,30 +40,9 @@ public class ViewAdaptor extends RecyclerView.Adapter<ViewAdaptor.Viewviewholder
     public void onBindViewHolder(@NonNull ViewAdaptor.Viewviewholder viewviewholder, int i) {
 
         RESULTHOME resulthome= datalist.get(i);
-       // Glide.with(context).load(resulthome.getUserImage()).apply(RequestOptions.circleCropTransform()).into(Viewviewholder.img);
+        // Glide.with(context).load(resulthome.getUserImage()).apply(RequestOptions.circleCropTransform()).into(Viewviewholder.img);
         Viewviewholder.text.setText("Barber");
-        Glide.with(context).load(R.drawable.kidz).apply(RequestOptions.circleCropTransform()).into(Viewviewholder.img);
-
-
-//        UserData userData= userDataList.get(i);
-//        profileViewHolder.textView1.setText(userData.getUserList().getName());
-//        profileViewHolder.textView2.setText(userData.getCityName());
-//        profileViewHolder.textView3.setText(userData.getDateUpdated());
-//        // profileViewHolder.textView4.setText(userData.getLikeCount());
-//        Glide
-//                .with(context)
-//                .load(userData.getUserList().getImage())
-//                .centerCrop()
-//                .into(profileViewHolder.imageView);
-//
-
-
-
-//        Glide.with(context).load(data.getUrl()).into(programingviewholder.img);
-//        programingviewholder.texttitle1.setText(data.getTitle());
-//        programingviewholder.texttitle2.setText(data.getDescription());
-//        programingviewholder.texttitle3.setText(data.getAuthor());
-
+        Glide.with(context).load(R.drawable.barber).apply(RequestOptions.circleCropTransform()).into(Viewviewholder.img);
 
     }
 
@@ -84,7 +63,5 @@ public class ViewAdaptor extends RecyclerView.Adapter<ViewAdaptor.Viewviewholder
         }
 
     }
-
-
 
 }

@@ -17,7 +17,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("signup")
     Call<Example> postSignup(@Field("first_name") String first_name, @Field("email") String email, @Field("password") String password, @Field("user_type")String user_type, @Field("device_id")String device_id
-    , @Field("platform")String platform, @Field("address")String address, @Field("latitude")String latitude, @Field("longitude")String longitude);
+            , @Field("platform")String platform, @Field("address")String address, @Field("latitude")String latitude, @Field("longitude")String longitude);
 
     @FormUrlEncoded
     @POST("login")
@@ -26,10 +26,6 @@ public interface Api {
 
     @GET("post-list")
     Call<ResponseBody> getData(@Query("type")String type,@Query("page")String page,
-                       @Query("user_type")String user_type);
+                               @Query("user_type")String user_type);
 
-
-    @GET("get-Like-Comment")
-    Call<ResponseBody> getLikes(@Query("type")String type,@Query("post_id")String post_id,
-                                @Query("page")String page);
 }

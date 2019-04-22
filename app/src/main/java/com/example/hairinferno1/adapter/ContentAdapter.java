@@ -36,8 +36,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     public ContentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View view = inflater.inflate(R.layout.activity_content, viewGroup, false);
-
-        // view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
         return new ContentViewHolder(view);
     }
 
@@ -49,8 +47,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
         commentViewHolder.textname.setText(resulthome.getName());
         commentViewHolder.name.setText(resulthome.getName());
         commentViewHolder.number_likes.setText(String.valueOf(resulthome.getLikeCount()));
-      //  ContentViewHolder.number_likes.setText(resulthome.getLikeCount());
-      //  ContentViewHolder.change_likes.setText(resulthome.getLikePlusComment());
         Glide.with(context).load(resulthome.getUserImage()).into(commentViewHolder.fullimage);
 
         commentViewHolder.expandedmenu.setOnClickListener(new View.OnClickListener() {
@@ -91,30 +87,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             }
         });
 
-//        commentViewHolder.like_flame.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//                if(commentViewHolder.like==false)
-//                {
-//                    commentViewHolder.like_flame.setImageResource(R.drawable.ic_red_flame);
-//                    commentViewHolder.like=true;
-//                    commentViewHolder.number_likes.setText(String.valueOf(resulthome.getLikeCount()+1));
-//                }
-//
-//                else if(commentViewHolder.like)
-//                {
-//                    commentViewHolder.like_flame.setImageResource(R.drawable.ic_flame);
-//                    commentViewHolder.like=false;
-//                    int like=Integer.parseInt(commentViewHolder.number_likes.getText().toString());
-//                    commentViewHolder.number_likes.setText(String.valueOf(like-1));
-//                }
-//
-//
-//            }
-//        });
-
         commentViewHolder.likelayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,11 +123,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     class ContentViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout likelayout;
-         CircleImageView profile_image;
-         TextView textname,name,number_likes,change_likes;
-         ImageView fullimage,expandedmenu,like_flame;
-         boolean like=false;
-         public ContentViewHolder(@NonNull View itemView) {
+        CircleImageView profile_image;
+        TextView textname,name,number_likes,change_likes;
+        ImageView fullimage,expandedmenu,like_flame;
+        boolean like=false;
+        public ContentViewHolder(@NonNull View itemView) {
             super(itemView);
 
             profile_image=itemView.findViewById(R.id.profile_image);
@@ -167,14 +139,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             expandedmenu=itemView.findViewById(R.id.expanded_menu);
             like_flame=itemView.findViewById(R.id.like_flame);
             likelayout=itemView.findViewById(R.id.like_layout);
-
-//            change_likes.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//
-//                }
-//            });
 
         }
     }

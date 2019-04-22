@@ -1,8 +1,10 @@
 package com.example.hairinferno1.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,10 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.hairinferno1.Interface.Api;
 import com.example.hairinferno1.R;
 import com.example.hairinferno1.Modal.RESULTHOME;
+import com.example.hairinferno1.activities.Login;
 import com.example.hairinferno1.adapter.ContentAdapter;
 import com.example.hairinferno1.adapter.*;
 
@@ -42,16 +46,15 @@ import static android.support.v7.widget.LinearLayoutManager.HORIZONTAL;
 
 public class Homefragment extends Fragment {
 
-
     RecyclerView recycler,recyclerContent;
     private Context context;
     private  View view;
     SharedPreferences sharedPreferences;
     List<RESULTHOME> resulthomes,list;
-    String resp;
     RESULTHOME resulthome;
     private static final String TAG = "Homefragment";
     int post_id;
+    private ProgressDialog mProgressDialog;
 
     public static Homefragment newInstance() {
         Homefragment fragment = new Homefragment();
@@ -64,14 +67,10 @@ public class Homefragment extends Fragment {
 
 
         view= inflater.inflate(R.layout.fragment_homefragment,container,false);
-
         setId();
         callNewsApi();
-        //getLike();
         context = getActivity();
-        //setData();
         return view;
-
     }
 
     private void setId() {
@@ -83,15 +82,6 @@ public class Homefragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-      //  list = new ArrayList<DataList>();
-
-
-     /*   setData();
-        setContentData();*/
-
-
-
     }
 
     private void callNewsApi() {
@@ -100,21 +90,24 @@ public class Homefragment extends Fragment {
                 .client(getHeader())
                 .build();
         Api api = retrofit.create(Api.class);
-
+        progressBar();
         Call<ResponseBody> call = api.getData("1", "1","1");
+
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.i(TAG, "onResponse: " + response.body());
 
+                if(mProgressDialog.isShowing())
+                {
+                    mProgressDialog.dismiss();
+                }
                 resulthomes=new ArrayList<>();
                 list=new ArrayList<>();
                 String result = null;
                 try {
                     result = response.body().string();
                     JSONObject jsonObject = new JSONObject(result);
-                    //  Log.i(TAG, "onResponse: "+jsonObject.getJSONArray("RESULT").length());
-                    //
                     JSONArray jsonArray = jsonObject.getJSONArray("RESULT");
                     Log.i("LENGTH", String.valueOf(jsonArray.length()));
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -125,8 +118,6 @@ public class Homefragment extends Fragment {
                         int is_like = jsonObject1.getInt("is_like");
                         String avg_rating = jsonObject1.getString("avg_rating");
                         int like_count = jsonObject1.getInt("like_count");
-                        String like_plus_comment = jsonObject1.getString("like_plus_comment");
-                        String user_rating = jsonObject1.getString("user_rating");
                         post_id=jsonObject1.getInt("post_id");
 
                         resulthome = new RESULTHOME();
@@ -156,25 +147,16 @@ public class Homefragment extends Fragment {
                 }
             }
 
-                @Override
+            @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.i(TAG, "onFailure: "+t.getMessage());
-                if (t instanceof IOException) {
-                    // Toast.makeText(MainActivity.this, "Internet Issue", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Toast.makeText(ImageLoadActivity.this, "Some Big Issue", Toast.LENGTH_SHORT).show();
-                }
-
-                // swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
     private OkHttpClient getHeader() {
 
-  //      sharedPreferences=getSharedPreferences("login",Context.MODE_PRIVATE);
-//        email= sharedPreferences.getString("emailkey","3");
         sharedPreferences=getActivity().getSharedPreferences("Signup", Context.MODE_PRIVATE);
-        final String token =sharedPreferences.getString("token","2");
+        final String token =sharedPreferences.getString("Token","2");
         Log.i("token", token);
         return new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -190,84 +172,13 @@ public class Homefragment extends Fragment {
                 .build();
     }
 
-
-
-/*    private OkHttpClient getHeader() {
-
-//        sharedPreferences=getSharedPreferences("login",Context.MODE_PRIVATE);
-//        email= sharedPreferences.getString("emailkey","3");
-        sharedPreferences=getActivity().getSharedPreferences("signup",Context.MODE_PRIVATE);
-        final String token =sharedPreferences.getString("token","2");
-        Log.i("token", token);
-        return new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
-                        Request newRequest = chain.request().newBuilder()
-//                                .addHeader("Authorization", "Basic cGl4YWxpdmU6REFGODdEU0ZEU0ZEU0E5OEZTQURLSkUzMjRLSkwzMkhGRDdGRFNGQjI0MzQzSjQ5RFNG")
-                                .addHeader("Authorization", "Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPRGc9Iiwic3ViIjoiSGFpciBJbmZlcm5vIiwiYXVkIjoiYzJSbVlYTmtaZz09IiwianRpIjoiWVhOa1ptRnpaZz09IiwiZXhwIjoiMjAxOS0wNC0yNiAxMjoyMDo0OCIsIm5iZiI6IjIwMTktMDQtMTggMDk6NTA6NDgifQ.0OKXjJhFiwykytV4uWIYFlaokMdzofV_dU2R3wg9xJQ")
-                                .build();
-                        return chain.proceed(newRequest);
-                    }
-                })
-                .build();
-    }*/
-
-
-
-   /* private void setData() {
-
-
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), HORIZONTAL, true));
-
-//        for (int i = 0; i < 100; i++) {
-//            list.add(new DataList("java", ""));
-//        }
-
-        list=new ArrayList<RESULTHOME>();
-       // list=(ArrayList)resp;
-        list.add(resulthome.getLikeCount());
-        list.add(resulthome.getUserImage());
-        list.add(resulthome.getName());
-        list.add(resulthome.getIsLike());
-
-        recycler.setAdapter(new ViewAdaptor(list,context));
-
-
-
-//        Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.Base_Url)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        Api api = retrofit.create(Api.class);
-//
-//        Call<List<ContactsContract.Contacts.Data>> call = api.getPost();
-//        call.enqueue(new Callback<List<Data>>() {
-//            @Override
-//            public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-//
-//                Log.i("tag", "onResponse: ");
-//                list = (ArrayList) response.body();
-//                recycler.setLayoutManager(new LinearLayoutManager(Homefragment.this));
-//                recycler.setAdapter(new ViewAdaptor(list, context));
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Data>> call, Throwable t) {
-//
-//            }
-//        });
-    }*/
-
-
-
-
-/*    private void setContentData()
+    private void progressBar()
     {
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setMax(20);
+        mProgressDialog.show();
+    }
 
-
-
-
-    }*/
 }

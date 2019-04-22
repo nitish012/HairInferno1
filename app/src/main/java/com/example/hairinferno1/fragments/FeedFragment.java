@@ -7,16 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hairinferno1.R;
+import com.example.hairinferno1.activities.Login;
+import com.example.hairinferno1.activities.SignUp;
 
 
 public class FeedFragment extends Fragment {
-
 
     public static FeedFragment newInstance() {
         FeedFragment fragment = new FeedFragment();
         return fragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,6 +24,5 @@ public class FeedFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_feed, container, false);
     }
-
 
 }
