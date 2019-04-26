@@ -1,7 +1,7 @@
 package com.example.hairinferno1.Interface;
 
 import com.example.hairinferno1.Modal.Example;
-
+import com.example.hairinferno1.Modal.ExampleHome;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -25,7 +25,7 @@ public interface Api {
                                  @Field("device_token")String device_token,@Field("platform")String platform);
 
     @GET("post-list")
-    Call<ResponseBody> getData(@Query("type")String type,@Query("page")String page,
-                               @Query("user_type")String user_type);
+    Call<ExampleHome> getData(@Query("type")String type, @Query("page")String page,
+                              @Query("user_type")String user_type);
 
 }

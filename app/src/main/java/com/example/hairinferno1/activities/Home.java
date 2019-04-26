@@ -9,22 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.example.hairinferno1.fragments.FeedFragment;
 import com.example.hairinferno1.R;
-
 import com.example.hairinferno1.fragments.Homefragment;
-import com.example.hairinferno1.R;
 
 public class Home extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        bottomNavigationView = findViewById(R.id.navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
 
+        //Attaching fragment to activity on tapping menu on bottom navigation menu
         bottomNavigationView.setOnNavigationItemSelectedListener
                 (new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -65,6 +63,7 @@ public class Home extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
 
+    // Exit on backpressing
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {

@@ -8,8 +8,8 @@
     >
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/list_image_size"
+        android:layout_height="@dimen/list_image_size"
         android:src="@mipmap/ic_launcher"
         android:scaleType="fitXY"
         android:id="@+id/img"/>
@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Barber"
+        android:text="@string/barber"
         android:layout_below="@+id/img"
         android:gravity="center"
         android:textColor="#000000"

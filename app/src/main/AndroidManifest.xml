@@ -12,8 +12,12 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.Home" />
-        <activity android:name=".activities.Login" />
-        <activity android:name=".activities.SignUp" />
+        <activity android:name=".activities.Login"
+            android:windowSoftInputMode="stateHidden"
+            />
+        <activity android:name=".activities.SignUp"
+            android:windowSoftInputMode="stateHidden"
+            />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

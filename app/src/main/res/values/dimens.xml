@@ -3,7 +3,7 @@
     <dimen name="splash_img2width">400dp</dimen>
     <dimen name="splash_img2height">150dp</dimen>
     <dimen name="splash_img2marginbottom">70dp</dimen>
-    <dimen name="sign_up_viewheight">400dp</dimen>
+    <dimen name="sign_up_viewheight">300dp</dimen>
     <dimen name="cardview_height">420dp</dimen>
     <dimen name="cardview_margintop">150dp</dimen>
     <dimen name="cardview_marginleft">30dp</dimen>
@@ -27,6 +27,8 @@
     <dimen name="commentlike_text">270dp</dimen>
     <dimen name="sharelayout_marginleft">70dp</dimen>
     <dimen name="layout_recycler_margintop">60dp</dimen>
+    <dimen name="card_width">320dp</dimen>
+    <dimen name="list_image_size">60dp</dimen>
 
     <!--<item name="edittext_margin" type="dimen" format="float">18.3dp</item>-->
 </resources>

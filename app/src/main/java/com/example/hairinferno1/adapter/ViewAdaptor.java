@@ -19,8 +19,8 @@ import java.util.List;
 public class ViewAdaptor extends RecyclerView.Adapter<ViewAdaptor.Viewviewholder> {
 
 
-    List<RESULTHOME> datalist;
-    Context context;
+    private List<RESULTHOME> datalist;
+    private Context context;
 
     public ViewAdaptor(List datalist, Context context)
     {

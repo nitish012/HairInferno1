@@ -1,18 +1,15 @@
 package com.example.hairinferno1.activities;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
-import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
@@ -20,15 +17,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.hairinferno1.Interface.Api;
 import com.example.hairinferno1.R;
-import com.example.hairinferno1.R;
-
-import java.util.PriorityQueue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,9 +29,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Login extends AppCompatActivity{
 
     private TextView tvLogin;
-    EditText mail,password;
-    String TAG="login";
-    SharedPreferences sharedPreferences;
+    private EditText mail,password;
+    private String TAG="login";
+    private SharedPreferences sharedPreferences;
     private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +48,10 @@ public class Login extends AppCompatActivity{
         password=findViewById(R.id.et_Password);
     }
 
-
+/* making string clickable    */
     private void signUpString() {
 
-        SpannableString text = new SpannableString("Don't have an account?SIGNUP");
+        SpannableString text = new SpannableString("Don't have an account? SIGNUP");
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
@@ -74,16 +64,15 @@ public class Login extends AppCompatActivity{
                 ds.setUnderlineText(false);
             }
         };
-        text.setSpan(clickableSpan, 22, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text.setSpan(clickableSpan, 23, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         tvLogin.setText(text);
         tvLogin.setMovementMethod(LinkMovementMethod.getInstance());
         tvLogin.setHighlightColor(Color.TRANSPARENT);
 
     }
-
+   /* checking email and password */
     public void login(View view) {
-        //Toast.makeText(this, "login", Toast.LENGTH_SHORT).show();
 
         String regexEmail="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
 
@@ -99,7 +88,7 @@ public class Login extends AppCompatActivity{
             Toast.makeText(this,"Please enter proper email",Toast.LENGTH_SHORT).show();
 
     }
-
+    /* hitting on api for login */
     private void loginAccount()
     {
         String user_email=mail.getText().toString();
@@ -140,12 +129,14 @@ public class Login extends AppCompatActivity{
                 }
 
                 if (response.code()==427)
-                {mProgressDialog.dismiss();
+                {
+                    mProgressDialog.dismiss();
                     Toast.makeText(Login.this, "Account not verified", Toast.LENGTH_SHORT).show();
                 }
 
                 if (response.code()==500){
-                    mProgressDialog.dismiss();
+
+                     mProgressDialog.dismiss();
                     Toast.makeText(Login.this, "Enter correct password", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -153,12 +144,12 @@ public class Login extends AppCompatActivity{
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.i(TAG,"Failure "+t.getMessage());
-
             }
         });
 
 
     }
+    /* including loader when data is loaded  */
     private void progressBar()
     {
         mProgressDialog = new ProgressDialog(Login.this);
@@ -166,7 +157,7 @@ public class Login extends AppCompatActivity{
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.setMax(20);
         mProgressDialog.show();
-
+        mProgressDialog.setCancelable(false);
     }
 
 

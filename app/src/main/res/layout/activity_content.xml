@@ -21,21 +21,19 @@
             android:layout_marginLeft="10dp"
             >
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
                 android:layout_width="@dimen/circleimage_width"
                 android:layout_height="@dimen/circleimage_height"
                 android:padding="7dp"
                 android:src="@drawable/profile"
-                app:civ_border_width="@dimen/circle_image_borderwidth"
-                app:civ_border_color="@color/circle_imagebordercolor"/>
+                app:civ_border_color="@color/circle_imagebordercolor"
+                app:civ_border_width="@dimen/circle_image_borderwidth" />
 
             <TextView
                 android:id="@+id/textname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="efrrgfrfrf"
                 android:layout_gravity="center"
 
                 />
@@ -45,7 +43,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="@dimen/textview_marginleft"
             android:layout_toRightOf="@id/profile"
             >
@@ -107,7 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/linearhome_padding"
-                        android:text="123"/>
+                        android:text="@string/text_like"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -118,7 +116,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4"
+                        android:text="@string/text_comment"
                         android:textAlignment="textEnd"
                         android:gravity="end" />
 
@@ -128,7 +126,7 @@
                         android:layout_gravity="end"
                         android:layout_marginLeft="@dimen/textview_marginleft"
                         android:gravity="end"
-                        android:text="comment"
+                        android:text="@string/comment"
 
                         />
                 </LinearLayout>
@@ -148,7 +146,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view"
                 android:layout_marginTop="-2dp">
-
 
                 <RelativeLayout
                     android:id="@+id/action_like_comment"
@@ -179,7 +176,7 @@
                             android:id="@+id/change_likes_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Likes" />
+                            android:text="@string/likes" />
 
                     </LinearLayout>
 
@@ -203,7 +200,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Comments"
+                            android:text="@string/comments"
 
                             />
 
@@ -226,7 +223,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Shares" />
+                            android:text="@string/shares" />
 
                     </LinearLayout>
 

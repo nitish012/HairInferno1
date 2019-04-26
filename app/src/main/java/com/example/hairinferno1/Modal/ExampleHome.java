@@ -18,7 +18,7 @@ public class ExampleHome {
     private String mESSAGE;
     @SerializedName("RESULT")
     @Expose
-    private List<RESULT> rESULT = null;
+    private List<RESULTHOME> rESULT = null;
 
     public Integer getCODE() {
         return cODE;
@@ -44,11 +44,11 @@ public class ExampleHome {
         this.mESSAGE = mESSAGE;
     }
 
-    public List<RESULT> getRESULT() {
+    public List<RESULTHOME> getRESULT() {
         return rESULT;
     }
 
-    public void setRESULT(List<RESULT> rESULT) {
+    public void setRESULT(List<RESULTHOME> rESULT) {
         this.rESULT = rESULT;
     }
 

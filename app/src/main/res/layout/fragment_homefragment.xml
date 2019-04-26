@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
     >
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -41,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Home"
+                    android:text="@string/home_toolbar"
                     android:textColor="@color/color_white"
                     android:textStyle="bold" />
 
@@ -108,7 +107,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:layout_below="@id/advertise"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:background="@color/color_white"
             />
 

@@ -12,14 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.hairinferno1.R;
 import com.example.hairinferno1.Modal.RESULTHOME;
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentViewHolder> {
@@ -107,11 +104,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
                     commentViewHolder.number_likes.setText(String.valueOf(like-1));
                 }
 
-
             }
         });
-
-
 
     }
 

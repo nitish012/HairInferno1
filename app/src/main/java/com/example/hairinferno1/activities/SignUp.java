@@ -15,7 +15,6 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,12 +22,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.hairinferno1.Modal.Example;
 import com.example.hairinferno1.Interface.Api;
 import com.example.hairinferno1.R;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +39,7 @@ public class SignUp extends AppCompatActivity {
     private EditText name,email,password,confirmPassword;
     private SharedPreferences sharedPreferences;
     private CheckBox checkBox;
-    String TAG="result";
+    private String TAG="result";
     private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +53,7 @@ public class SignUp extends AppCompatActivity {
 
     private void fetchId()
     {
-
+        /* getting id of items */
         tvTerms=findViewById(R.id.tv_terms);
         tvLogin=findViewById(R.id.tv_login);
         ok=findViewById(R.id.btn_ok);
@@ -67,7 +63,7 @@ public class SignUp extends AppCompatActivity {
         confirmPassword=findViewById(R.id.et_confirmPassword);
         checkBox=findViewById(R.id.agree_checkbox);
     }
-
+    /* changing a color of string  */
     private void termsString() {
 
         String text = "I agree to the <font color='red'>Terms of Service</font> and <font color='red'>Privacy Policy</font>.";
@@ -80,14 +76,15 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+    /* making a selected string clickable   */
     private void loginString()
     {
-
-        SpannableString text = new SpannableString("Already have a account?LOGIN");
+        SpannableString text = new SpannableString("Already have a account? LOGIN");
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
                 startActivity(new Intent(SignUp.this, Login.class));
+                finish();
             }
             @Override
             public void updateDrawState(TextPaint ds) {
@@ -95,7 +92,7 @@ public class SignUp extends AppCompatActivity {
                 ds.setUnderlineText(false);
             }
         };
-        text.setSpan(clickableSpan, 23, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text.setSpan(clickableSpan, 24, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         tvLogin.setText(text);
         tvLogin.setMovementMethod(LinkMovementMethod.getInstance());
@@ -103,9 +100,11 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+    /* checking a mail password and check terms and conditions */
     public void signUp(View view) {
 
         String regexEmail="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+       // String regexEmail="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
         if(email.getText().toString().length()==0 || password.getText().toString().length()==0 || confirmPassword.getText().toString().length()==0 || name.getText().toString().length()==0 )
             Toast.makeText(this,"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -121,9 +120,9 @@ public class SignUp extends AppCompatActivity {
         else if(!checkBox.isChecked())
             Toast.makeText(this,"Please agree to our terms and conditions",Toast.LENGTH_SHORT).show();
 
-        else if (name.getText().toString().length()<5)
+        else if (name.getText().toString().length()<4)
         {
-            Toast.makeText(this,"Name must contain atleast 5 characters",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Name must contain atleast 4 characters",Toast.LENGTH_SHORT).show();
         }
 
         else
@@ -132,14 +131,15 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
+    /* moving to login on confirmation  */
     public void ok(View view) {
 
         Intent intent=new Intent(SignUp.this,Login.class);
         startActivity(intent);
         finish();
-
     }
 
+    /* hitting a signup api for filling details */
     public void postSignup()
     {
 
@@ -178,7 +178,18 @@ public class SignUp extends AppCompatActivity {
                     editor.putString("Token",token);
                     editor.apply();
                 }
+                else if(response.code()==421)
+                {
+                    Toast.makeText(SignUp.this, "Email already exist", Toast.LENGTH_SHORT).show();
+                    mProgressDialog.dismiss();
+                    mProgressDialog.setCancelable(true);
 
+                }
+                else {
+
+                    mProgressDialog.setCancelable(true);
+                    finish();
+                }
 
             }
             @Override
@@ -189,6 +200,7 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
+    /* including a loader until details are registered  */
     private void progressBar()
     {
         mProgressDialog = new ProgressDialog(SignUp.this);
@@ -196,12 +208,15 @@ public class SignUp extends AppCompatActivity {
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.setMax(20);
         mProgressDialog.show();
-
+        mProgressDialog.setCancelable(false);
     }
 
+    /* finish acitvity on backpressed and move to login activity*/
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent=new Intent(this,Login.class);
+        startActivity(intent);
         finish();
     }
 }

@@ -5,9 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.hairinferno1.R;
 
-import com.example.hairinferno1.R;
-import com.example.hairinferno1.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         CODE=sharedPreferences.getInt("code",2);
         if(CODE==200)
         {
+            /*moving to activity when user have already signin */
             Intent intent=new Intent(this,Home.class);
             startActivity(intent);
             finish();
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         else
         {
+            /* user is first time signup*/
             splashScreen();
         }
 

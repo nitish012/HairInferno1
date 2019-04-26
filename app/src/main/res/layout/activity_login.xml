@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,9 +8,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/top_relative"
             android:layout_width="match_parent"
             android:layout_height="@dimen/imagerelative_height"
             android:background="@color/colorBlack">
@@ -21,15 +21,16 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_logo"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin"
+                android:layout_centerVertical="true"
                 />
 
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/detail"
-            android:layout_marginTop="-23.50dp"
+            android:layout_marginTop="-50.50dp"
             android:layout_width="match_parent"
+            android:layout_below="@+id/top_relative"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -39,12 +40,9 @@
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cv_one_login"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/card_width"
                     android:layout_height="@dimen/card_height"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/card_top_margin"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginRight="@dimen/margin"
                     android:elevation="10dp"
                     app:cardBackgroundColor="#fcfcfc"
                     app:cardCornerRadius="10dp"
@@ -56,7 +54,6 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         >
-
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/text_input_layout"
@@ -70,11 +67,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/edittext_margin"
                                 android:layout_marginRight="@dimen/edittext_margin"
-                                android:hint="Email"
-
+                                android:hint="@string/hint_email"
+                                android:ems="10"
+                                android:inputType="text"
+                                android:maxLength="40"
+                                android:maxLines="1"
                                 />
                         </android.support.design.widget.TextInputLayout>
-
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/etPasswordLayout"
@@ -87,11 +86,14 @@
                                 android:id="@+id/et_Password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="textPassword"
                                 android:layout_marginTop="15dp"
                                 android:layout_marginLeft="@dimen/edittext_margin"
                                 android:layout_marginRight="@dimen/edittext_margin"
-                                android:hint="Password"
+                                android:hint="@string/hint_password"
+                                android:ems="10"
+                                android:inputType="text"
+                                android:maxLength="40"
+                                android:maxLines="1"
                                 />
                         </android.support.design.widget.TextInputLayout>
 
@@ -99,7 +101,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Forgot Password?"
+                            android:text="@string/forgot_password"
                             android:layout_gravity="center"
                             android:layout_marginTop="20sp"
                             android:textSize="15sp"
@@ -120,7 +122,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="-30dp"
                 android:elevation="15dp"
-                android:text="LOGIN"
+                android:text="@string/login"
                 android:textColor="#fff"
                 android:background="@drawable/button"
                 android:onClick="login"
@@ -133,12 +135,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/detail"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:textSize="15sp"
             android:layout_marginBottom="40sp"
             android:textColor="@color/colorBlack"
-
             />
 
     </RelativeLayout>
